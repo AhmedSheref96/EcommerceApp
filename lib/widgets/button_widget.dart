@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../theme/colors.dart';
 
 class ButtonWidget extends StatelessWidget {
   const ButtonWidget({
     Key? key,
     this.onpressed,
     required this.title,
+    this.titleColor,
     required this.icon,
     this.color,
   }) : super(key: key);
 
   final Function()? onpressed;
   final String title;
+  final Color? titleColor;
   final Icon icon;
   final Color? color;
 
@@ -19,7 +24,15 @@ class ButtonWidget extends StatelessWidget {
     return MaterialButton(
       onPressed: onpressed,
       height: 45,
-      color: color ?? const Color.fromRGBO(54, 105, 201, 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      color: color ?? primaryColor,
+      child: Center(
+        child: Text(
+          title.capitalize ?? "",
+          style: TextStyle(color: titleColor ?? Colors.white),
+        ),
+      ),
     );
   }
+
 }

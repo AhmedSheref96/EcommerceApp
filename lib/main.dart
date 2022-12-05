@@ -1,4 +1,7 @@
+import 'package:e_commerce_app/binding/home_binding.dart';
 import 'package:e_commerce_app/binding/main_binding.dart';
+import 'package:e_commerce_app/theme/colors.dart';
+import 'package:e_commerce_app/ui/home/home_screen.dart';
 import 'package:e_commerce_app/ui/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,16 +18,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primaryColor: primaryColor),
       initialBinding: MainBinding(),
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(
-            name: "/register",
-            page: () => const RegisterScreen(),
-            binding: MainBinding())
+          name: "/register",
+          page: () => const RegisterScreen(),
+          binding: MainBinding(),
+        ),
+        GetPage(
+          name: "/home",
+          page: () => HomeScreen(),
+        ),
       ],
       home: const RegisterScreen(),
     );

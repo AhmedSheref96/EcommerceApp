@@ -5,6 +5,5 @@ class MainBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(RegisterViewModel());
-
   }
 }

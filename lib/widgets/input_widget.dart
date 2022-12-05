@@ -6,11 +6,13 @@ class InputWidget extends StatelessWidget {
     this.onChanged,
     required this.value,
     required this.label,
+    this.isSecured = false,
   }) : super(key: key);
 
   final Function(String value)? onChanged;
   final String value;
   final String label;
+  final bool isSecured;
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +33,20 @@ class InputWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: const Color.fromRGBO(237, 237, 237, 1),
           ),
-          child: TextField(
-            style: const TextStyle(fontSize: 18),
-            decoration: InputDecoration(
-              labelText: value,
-              border: InputBorder.none,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TextFormField(
+              obscureText: isSecured,
+              autocorrect: !isSecured,
+              enableSuggestions: !isSecured,
+              initialValue: value,
+              style: const TextStyle(fontSize: 18),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: label,
+              ),
+              onChanged: onChanged,
             ),
-            onChanged: onChanged,
           ),
         ),
       ],
