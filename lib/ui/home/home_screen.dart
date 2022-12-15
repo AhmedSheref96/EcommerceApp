@@ -1,38 +1,45 @@
 import 'package:e_commerce_app/theme/colors.dart';
 import 'package:e_commerce_app/ui/home/cart/cart_screen.dart';
-import 'package:e_commerce_app/ui/home/favorites/favorites_screen.dart';
+import 'package:e_commerce_app/ui/home/for_you/for_you_screen.dart';
 import 'package:e_commerce_app/ui/home/home_view_model.dart';
 import 'package:e_commerce_app/ui/home/home_wall/home_wall_screen.dart';
+import 'package:e_commerce_app/ui/home/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends GetWidget<HomeViewModel> {
+class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   final menuItems = [
     const BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
+      icon: ImageIcon(AssetImage("assets/images/home.png")),
       label: "home",
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.favorite_outline),
-      label: "favorites",
+      icon: ImageIcon(AssetImage("assets/images/vector.png")),
+      label: "for you",
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.shopping_cart_outlined),
+      icon: ImageIcon(AssetImage("assets/images/bag.png")),
       label: "cart",
+    ),
+    const BottomNavigationBarItem(
+      icon: ImageIcon(AssetImage("assets/images/profile.png")),
+      label: "profile",
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: _bottomNavBar(),
-      body: _screen(),
+    return GetBuilder<HomeViewModel>(
+      builder: (controller) => Scaffold(
+        bottomNavigationBar: _bottomNavBar(controller),
+        body: _screen(controller),
+      ),
     );
   }
 
-  _bottomNavBar() {
+  _bottomNavBar(HomeViewModel controller) {
     return BottomNavigationBar(
       items: menuItems,
       showUnselectedLabels: false,
@@ -46,14 +53,16 @@ class HomeScreen extends GetWidget<HomeViewModel> {
     );
   }
 
-  _screen() {
+  _screen(HomeViewModel controller) {
     switch (controller.currentIndex) {
       case 0:
         return HomeWallScreen();
       case 1:
-        return FavoritesScreen();
-      case 1:
+        return ForYouScreen();
+      case 2:
         return CartScreen();
+      case 3:
+        return ProfileScreen();
     }
   }
 }

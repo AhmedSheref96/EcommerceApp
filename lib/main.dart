@@ -24,15 +24,14 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: "/register",
-          page: () => const RegisterScreen(),
-          binding: MainBinding(),
+          page: () => RegisterScreen(),
         ),
         GetPage(
           name: "/home",
           page: () => HomeScreen(),
         ),
       ],
-      home: const RegisterScreen(),
+      home: RegisterScreen(),
     );
   }
 }

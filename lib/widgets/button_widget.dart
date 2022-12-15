@@ -9,14 +9,14 @@ class ButtonWidget extends StatelessWidget {
     this.onpressed,
     required this.title,
     this.titleColor,
-    required this.icon,
+    this.icon,
     this.color,
   }) : super(key: key);
 
   final Function()? onpressed;
   final String title;
   final Color? titleColor;
-  final Icon icon;
+  final Icon? icon;
   final Color? color;
 
   @override

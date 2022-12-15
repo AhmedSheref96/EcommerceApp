@@ -9,7 +9,8 @@ import '../../binding/home_binding.dart';
 import '../../theme/colors.dart';
 
 class RegisterScreen extends GetWidget<RegisterViewModel> {
-  const RegisterScreen({Key? key}) : super(key: key);
+  RegisterScreen({Key? key}) : super(key: key);
+  final GlobalKey<FormState> _formState = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,29 +42,35 @@ class RegisterScreen extends GetWidget<RegisterViewModel> {
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    InputWidget(
-                      label: "user name",
-                      value: controller.userName,
-                      onChanged: (value) => controller.updateUserName(value),
-                    ),
-                    const SizedBox(height: 30),
-                    InputWidget(
-                      label: "password",
-                      value: controller.password,
-                      onChanged: (value) => controller.updatePassword(value),
-                      isSecured: true,
-                    ),
-                    const SizedBox(height: 30),
-                    ButtonWidget(
-                      title: "SignIn",
-                      icon: const Icon(Icons.done),
-                      onpressed: () {
-                        Get.offAll(HomeScreen(), binding: HomeBinding());
-                      },
-                    )
-                  ],
+                Form(
+                  key: _formState,
+                  child: Column(
+                    children: [
+                      InputWidget(
+                        label: "user name",
+                        hint: "user name",
+                        onSaved: (value) => controller.updateUserName(value??""),
+                      ),
+                      const SizedBox(height: 30),
+                      InputWidget(
+                        label: "password",
+                        hint: "password",
+                        onSaved: (value) => controller.updatePassword(value??""),
+                        isSecured: true,
+                      ),
+                      const SizedBox(height: 30),
+                      ButtonWidget(
+                        title: "SignIn",
+                        icon: const Icon(Icons.done),
+                        onpressed: () {
+                          _formState.currentState?.save();
+                          if (_formState.currentState?.validate()==true) {
+                            Get.to(HomeScreen(), binding: HomeBinding());
+                          }
+                        },
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 50),
                 Row(
